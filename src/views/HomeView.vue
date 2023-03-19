@@ -17,5 +17,5 @@ import PokemonForm from '../components/PokemonForm.vue';
     text-align: center
 
   &__form
-    margin-top: 30px
+    margin-top: 40px
 </style>

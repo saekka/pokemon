@@ -44,21 +44,19 @@ watch(
 </script>
 
 <template>
-  <template v-if="flag.isLoading">
-    <section class="loading">
-      <div class="ball">
-        <span class="ball-line"></span>
-        <span class="shine"></span>
-        <div class="band">
-          <span class="band-inner mod-gold"></span>
-          <span class="band-inner mod-white"></span>
-          <button class="band-button" type="button"></button>
-        </div> <span class="ball__band mod-gold"></span> -->
-      </div>
-      <p class="loading-text">Loading</p>
-    </section>
-  </template>
-  <template v-else>
+  <section class="loading" v-if="flag.isLoading">
+    <div class="ball">
+      <span class="ball-line"></span>
+      <span class="shine"></span>
+      <div class="band">
+        <span class="band-inner mod-gold"></span>
+        <span class="band-inner mod-white"></span>
+        <button class="band-button" type="button"></button>
+      </div> <span class="ball__band mod-gold"></span> -->
+    </div>
+    <p class="loading-text">Loading</p>
+  </section>
+  <section v-else>
     <template v-if="pokemons.length > 0">
       <dl class="pokemon-list">
         <PokemonItem class="pokemon-list__item" v-for="(pokemon, i) in pokemons" :key="i" :pokemon="pokemon" />
@@ -67,15 +65,18 @@ watch(
     <template v-else>
       <p class="pokemon-list__nodata">同じ体型のポケモンはいないみたい...</p>
     </template>
-  </template>
+  </section>
 </template>
 
 <style lang="sass" scoped>
 .pokemon-list
   display: grid
   justify-content: center
-  grid-template-columns: repeat(auto-fill,140px)
   grid-gap: 30px 15px
+  grid-template-columns: 1fr 1fr
+
+  @media screen and (min-width:480px)
+    grid-template-columns: repeat(auto-fill,140px)
 
   &__nodata
     text-align: center
