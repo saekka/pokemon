@@ -6,7 +6,15 @@
 }
 
 .app {
-  padding: 4vw 8vw;
+  padding: 6vw;
+}
+
+@media screen and (min-width:480px) {
+
+  .app {
+    padding: 2vw 8vw;
+
+  }
 }
 
 ul,

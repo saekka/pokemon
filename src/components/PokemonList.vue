@@ -4,15 +4,24 @@ import type { Pokemon } from '../model/pokemon';
 import { nextTick, onMounted, reactive, watch } from 'vue';
 
 // eslint-disable-next-line vue/no-setup-props-destructure
-const props = defineProps<{ pokemons: Pokemon[], height?: string }>();
+const props = defineProps<{ pokemons: Pokemon[], height?: string, weight?: string }>();
 let pokemons: Pokemon[];
 
 const flag = reactive({ isLoading: false })
 
 const setPokemon = () => {
   pokemons = props.pokemons
+  if (props.height && props.weight) {
+    pokemons = pokemons.filter(item => (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height)) && (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight)));
+    return
+  }
   if (props.height) {
-    pokemons = pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 == Number(props.height));
+    pokemons = pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height));
+    return
+  }
+  if (props.weight) {
+    pokemons = pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight));
+    return
   }
 }
 
@@ -25,7 +34,7 @@ onMounted(() => {
   setPokemon()
   setTimeout(toggleLoadingFlag, 1000)
 })
-pokemons = props.height ? props.pokemons.filter(item => { item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height === props.height }) : props.pokemons
+pokemons = props.pokemons
 watch(
   () => props.height,
   (newValue, oldValue) => {
@@ -35,7 +44,18 @@ watch(
       nextTick()
       setTimeout(toggleLoadingFlag, 1000)
     }
-
+  },
+  { deep: true, flush: 'pre' },
+)
+watch(
+  () => props.weight,
+  (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+      toggleLoadingFlag()
+      setTimeout(setPokemon, 1000)
+      nextTick()
+      setTimeout(toggleLoadingFlag, 1000)
+    }
   },
   { deep: true, flush: 'pre' },
 )

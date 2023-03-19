@@ -1,16 +1,23 @@
 <template>
-  <form class="pokemon-form">
-    <label class="pokemon-form__label">
-      <span>身長</span>
-      <input id="height" class="pokemon-form__input" type="text" v-model="height">
-      <span class="pokemon-form__unit">cm</span>
-    </label>
-  </form>
-  <template v-if="fetchdata">
-    <div class="pokemon-form__list">
-      <PokemonList :pokemons="fetchdata" :height="height" />
-    </div>
-  </template>
+  <div>
+    <form class="pokemon-form">
+      <label class="pokemon-form__label">
+        <span class="pokemon-form__label-text">身長</span>
+        <input id="height" class="pokemon-form__input" type="text" v-model="height">
+        <span class="pokemon-form__unit">cm</span>
+      </label>
+      <label class="pokemon-form__label">
+        <span class="pokemon-form__label-text">体重</span>
+        <input id="weight" class="pokemon-form__input" type="text" v-model="weight">
+        <span class="pokemon-form__unit">kg</span>
+      </label>
+    </form>
+    <template v-if="fetchdata">
+      <div class="pokemon-form__list">
+        <PokemonList :pokemons="fetchdata" :height="height" :weight="weight" />
+      </div>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts" >
@@ -22,6 +29,7 @@ import PokemonList from './PokemonList.vue';
 import type { Pokemon } from '../model/pokemon';
 
 const height = ref<string>();
+const weight = ref<string>();
 
 type Query = {
   [x: string]: Pokemon[];
@@ -69,14 +77,25 @@ getAllPokemons();
 <style lang="sass" scoped>
 .pokemon-form
   display: flex
+  flex-wrap: wrap
   justify-content: center
 
   &__label
     display: flex
+    flex-wrap: wrap
     align-items: center
 
-  &__input
+    & + &
+      @media screen and (min-width:480px)
+        margin-left: 10%
+
+      @media screen and (max-width:480px)
+        margin-top: 0.7em
+
+  &__label-text + &__input
     margin-left: 1em
+
+  &__input
     padding: 0.5em
 
   &__unit
@@ -84,6 +103,6 @@ getAllPokemons();
     align-self: end
 
   &__list
-    margin-top: 40px
+    margin-top: 8vw
 
 </style>
