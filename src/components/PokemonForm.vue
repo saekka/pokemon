@@ -5,11 +5,17 @@
         <span class="pokemon-form__label-text">身長</span>
         <input id="height" class="pokemon-form__input" type="text" v-model="height">
         <span class="pokemon-form__unit">cm</span>
+        <button type="button" class="pokemon-form__delete-button" @click="height = ''">
+          <img class="pokemon-form__delete-button-icon" src="../assets/trash-icon.svg" alt="削除">
+        </button>
       </label>
       <label class="pokemon-form__label">
         <span class="pokemon-form__label-text">体重</span>
         <input id="weight" class="pokemon-form__input" type="text" v-model="weight">
         <span class="pokemon-form__unit">kg</span>
+        <button type="button" class="pokemon-form__delete-button" @click="weight = ''">
+          <img class="pokemon-form__delete-button-icon" src="../assets/trash-icon.svg" alt="削除">
+        </button>
       </label>
     </form>
     <template v-if="fetchdata">
@@ -83,10 +89,11 @@ getAllPokemons();
   &__label
     display: flex
     flex-wrap: wrap
+    // display: grid
     align-items: center
 
     & + &
-      @media screen and (min-width:480px)
+      @media screen and (min-width:500px)
         margin-left: 10%
 
       @media screen and (max-width:480px)
@@ -97,12 +104,33 @@ getAllPokemons();
 
   &__input
     padding: 0.5em
+    width: 6em
 
   &__unit
     margin-left: 0.5em
     align-self: end
+    width: 1.5em
+
+
+  &__delete-button
+    width: 40px
+    height: 40px
+    padding: 6px
+    display: flex
+    margin-left: 20px
+    border-radius: 50%
+    background-color: #ccc
+    border: none
+    
+  
+  &__delete-button-icon
+    width: 100%
 
   &__list
     margin-top: 8vw
+
+    @media screen and (min-width:480px)
+      margin-top: 6vw
+
 
 </style>
