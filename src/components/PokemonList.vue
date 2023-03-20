@@ -263,9 +263,8 @@ $pink : #c83892
       &.mod-gorgeous
         display: none
 
-
     &.mod-lovelove
-      background: linear-gradient(to bottom, $pink 44%, #222 44% 54%, #fff 54% 80%)
+      background: linear-gradient(to bottom, $pink 47%, #222 47% 57%, #fff 57% 80%)
 
     &.mod-gorgeous
       background: linear-gradient(to bottom, #222 8%, $gold 8% 20%, #222 20% 80%)

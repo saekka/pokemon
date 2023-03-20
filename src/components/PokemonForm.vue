@@ -120,7 +120,9 @@ getAllPokemons();
     border-radius: 50%
     background-color: #ccc
     border: none
-    
+
+    &:disabled
+      opacity: .6
   
   &__delete-button-icon
     width: 100%
