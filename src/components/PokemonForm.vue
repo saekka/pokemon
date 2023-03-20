@@ -11,9 +11,9 @@
       </label>
       <label class="pokemon-form__label">
         <span class="pokemon-form__label-text">体重</span>
-        <input id="weight" class="pokemon-form__input" type="text" v-model="weight">
+        <input id="weight" class="pokemon-form__input" type="text" v-model="weight" :disabled="height == ''">
         <span class="pokemon-form__unit">kg</span>
-        <button type="button" class="pokemon-form__delete-button" @click="weight = ''">
+        <button type="button" class="pokemon-form__delete-button" @click="weight = ''" :disabled="weight == ''">
           <img class="pokemon-form__delete-button-icon" src="../assets/trash-icon.svg" alt="削除">
         </button>
       </label>
@@ -89,7 +89,6 @@ getAllPokemons();
   &__label
     display: flex
     flex-wrap: wrap
-    // display: grid
     align-items: center
 
     & + &
@@ -97,7 +96,7 @@ getAllPokemons();
         margin-left: 10%
 
       @media screen and (max-width:480px)
-        margin-top: 0.7em
+        margin-top: 1em
 
   &__label-text + &__input
     margin-left: 1em
@@ -113,11 +112,11 @@ getAllPokemons();
 
 
   &__delete-button
-    width: 40px
-    height: 40px
+    width: 32px
+    height: 32px
     padding: 6px
     display: flex
-    margin-left: 20px
+    margin-left: 10px
     border-radius: 50%
     background-color: #ccc
     border: none

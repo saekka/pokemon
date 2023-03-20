@@ -65,16 +65,25 @@ watch(
 
 <template>
   <section class="loading" v-if="flag.isLoading">
-    <div class="ball">
-      <span class="ball-line"></span>
-      <span class="shine"></span>
-      <div class="band">
-        <span class="band-inner mod-gold"></span>
-        <span class="band-inner mod-white"></span>
-        <button class="band-button" type="button"></button>
-      </div> <span class="ball__band mod-gold"></span> -->
+    <div class="loading__ball mod-gorgeous">
+      <span class="loading__ball-line"></span>
+      <span class="loading__ball-shine"></span>
+      <div class="loading__ball-band">
+        <span class="loading__ball-band-inner mod-gold"></span>
+        <span class="loading__ball-band-inner mod-white"></span>
+        <button class="loading__ball-band-button  mod-gold" type="button"></button>
+      </div>
     </div>
-    <p class="loading-text">Loading</p>
+    <div class="loading__ball mod-lovelove">
+      <span class="loading__ball-heart mod-bg"></span>
+      <span class="loading__ball-heart mod-pink"></span>
+      <span class="loading__ball-shine mod-pink"></span>
+      <div class="loading__ball-band">
+        <span class="loading__ball-band-inner mod-lovelove"></span>
+        <button class="loading__ball-band-button" type="button"></button>
+      </div>
+    </div>
+    <p class="loading__text">Loading</p>
   </section>
   <section v-else>
     <template v-if="pokemons.length > 0">
@@ -102,6 +111,7 @@ watch(
     text-align: center
 
 $gold : #f0bd4b
+$pink : #c83892
 
 @mixin positionCenter
   position: absolute
@@ -117,111 +127,209 @@ $gold : #f0bd4b
   align-items: center
   height: 40vh
 
-.loading-text
-  transform: translateY(-15px)
-  color: $gold
-  letter-spacing: .2em
-.ball
-  overflow: hidden
-  transform: scale(0.5)
-  width: 120px
-  height: 120px
-  border-radius: 50%
-  background: linear-gradient(to bottom, #222 8%, $gold 8% 20%, #222 20% 80%)
-  box-shadow: -20px -10px 40px rgba(#000, .5) inset, 0px -1px 4px 0px #fff
-  animation: loading 2s ease-out 0s infinite
+  &__text
+    transform: translateY(-15px)
+    
+    letter-spacing: .2em
 
+    @media (prefers-color-scheme: dark)
+      color: $gold
 
-.band
-  width: 100%
-  height: 100%
-
-.band-button
-  @include positionCenter
-  width: 30px
-  height: 30px
-  border-radius: 50%
-  border: none
-  background-color: $gold
-  z-index: 3
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.4), -3px -3px 4px rgba(255,255,255,0.4)
-
-  &:after
-    @include positionCenter
-    content: ''
-    width: 15px
-    height: 15px
-    border-radius: 50%
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4), -3px -3px 4px rgba(255,255,255,0.4)
-
-.ball-line
-  top: 9px
-  position: absolute
-  background-color: $gold
-  height: 15px
-  width: 100%
-  box-shadow: 0px 0px 1px 1px #000
-
-  &:before
-    content: ''
-    top: 4px
+    @media (prefers-color-scheme: light)
+      color: $pink
+  
+  &__ball-shine
+    height: 50%
+    width: 56%
     position: absolute
-    background-color: #d50000
-    height: 7px
+    top: -6%
+    left: 0%
+    background-color: rgba(#fff, .2)
+    border-bottom-right-radius: 75%
+    border-top-right-radius: 65%
+    z-index: 2
+
+    &.mod-pink
+      &:before, &:after
+        @include positionCenter
+        content: ''
+        display: block
+        background-color: rgba(#fff, .7)
+        border-radius: 50%
+      
+      &:before
+        width: 11px
+        height: 13px
+        left: 77%
+        top: 54%
+      
+      &:after
+        width: 4px
+        height: 13px
+        left: 90%
+        top: 56%
+
+
+  &__ball-band
     width: 100%
-    box-shadow: 1px 1px 1px 2px #c70202 inset
-
-.shine
-  position: absolute
-  height: 40%
-  width: 60%
-  background-color: #fff
-  left: 0%
-  opacity: 0.2
-  border-bottom-right-radius: 75%
-  border-top-right-radius: 65%
-  z-index: 2
-.band-inner
-  @include positionCenter
-  border-radius: 50%
-  background-color: #222
-  width: 60px
-  height: 60px
+    height: 100%
   
-  &:before, &:after
+  &__ball-band-button
     @include positionCenter
-    content: ''
-
-  &:before
-    width: 200px
+    width: 30px
     height: 30px
-    background: linear-gradient(to right, #e0e2ee 8%, #e0e2ee 9% 11%, #e0e2ee 11% 12%, #fff 17% 19%, #e0e2ee 22% 50%, #e0e2ee 50% 60%, #e0e2ee 60% 70%, #e0e2ee 70% 76%, #fff 81% 83%, #e0e2ee 88% 91%)
-    border: 2px solid #222
-  
-  &:after
-    background: linear-gradient(to right, #e0e2ee 8%, #e0e2ee 9% 11%, #e0e2ee 11% 12%, #fff 17% 19%, #e0e2ee 22% 50%, #e0e2ee 50% 60%, #e0e2ee 60% 70%, #e0e2ee 70% 76%, #fff 81% 83%, #e0e2ee 88% 91%)
-    width: 50px
-    height: 50px
     border-radius: 50%
-
-  &.mod-gold
-    width: 45px
-    height: 45px
-    z-index: 1
-
-    &:before, &:after
-      content: ''
-
-    &:before
-      @include positionCenter
-      width: 130px
-      height: 20px
-      background: linear-gradient(to right, $gold 7%, #feffad 13% 17%, $gold 27% 50%, $gold 50% 60%, $gold 60% 70%, $gold 70% 64%, #feffad 85% 87%, $gold 94% 97%)
+    border: none
+    z-index: 3
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4), -3px -3px 4px rgba(255,255,255,0.4)
+    &.mod-gold
+      background-color: $gold
     
     &:after
-      width: 41px
-      height: 41px
-      background: linear-gradient(to right, $gold 32%, #feffad 51% 44%, $gold 68%)
+      @include positionCenter
+      content: ''
+      width: 15px
+      height: 15px
+      border-radius: 50%
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.4), -3px -3px 4px rgba(255,255,255,0.4)
+  
+  &__ball-heart
+    width: 40px
+    height: 40px
+    display: inline-block
+    @include positionCenter
+    top: 24%
+    z-index: -1
+
+
+    &:before, &:after
+      content: ""
+      width: 52%
+      height: 77%
+      background-color: #ffb4cf
+      border-radius: 25px 25px 0 0
+      display: block
+      position: absolute
+    
+    &:before
+      transform: rotate(-40deg)
+      left: 13%
+
+    &:after
+      transform: rotate(40deg)
+      right: 13%
+    
+    &.mod-pink
+      &:before
+        left: 6%
+      
+      &:after
+        right: 6%
+
+    &.mod-bg
+      width: 56px
+      height: 56px
+      z-index: -2
+      top: 27%
+
+      &:before, &:after
+        background-color: #fff
+      
+  
+  &__ball-band-inner.mod-lovelove
+    @include positionCenter
+    position: absolute
+    background-color: #222
+    content: ''
+    width: 45px
+    height: 45px
+    border-radius: 50%
+    z-index: -1
+
+  &__ball
+    overflow: hidden
+    transform: scale(0.5)
+    width: 120px
+    height: 120px
+    border-radius: 50%
+    box-shadow: -20px -10px 40px rgba(#000, .5) inset, 0px -1px 4px 0px #fff
+    animation: loading 2s ease-out 0s infinite
+
+    @media (prefers-color-scheme: dark)
+      &.mod-lovelove
+        display: none
+    
+    @media (prefers-color-scheme: light)
+      &.mod-gorgeous
+        display: none
+
+
+    &.mod-lovelove
+      background: linear-gradient(to bottom, $pink 44%, #222 44% 54%, #fff 54% 80%)
+
+    &.mod-gorgeous
+      background: linear-gradient(to bottom, #222 8%, $gold 8% 20%, #222 20% 80%)
+
+      .loading__ball
+  
+        &-line
+          top: 9px
+          position: absolute
+          background-color: $gold
+          height: 15px
+          width: 100%
+          box-shadow: 0px 0px 1px 1px #000
+
+          &:before
+            content: ''
+            top: 4px
+            position: absolute
+            background-color: #d50000
+            height: 7px
+            width: 100%
+            box-shadow: 1px 1px 1px 2px #c70202 inset
+
+        &-band-inner
+          @include positionCenter
+          border-radius: 50%
+          background-color: #222
+          width: 60px
+          height: 60px
+          
+          &:before, &:after
+            @include positionCenter
+            content: ''
+
+          &:before
+            width: 200px
+            height: 30px
+            background: linear-gradient(to right, #e0e2ee 8%, #e0e2ee 9% 11%, #e0e2ee 11% 12%, #fff 17% 19%, #e0e2ee 22% 50%, #e0e2ee 50% 60%, #e0e2ee 60% 70%, #e0e2ee 70% 76%, #fff 81% 83%, #e0e2ee 88% 91%)
+            border: 2px solid #222
+          
+          &:after
+            background: linear-gradient(to right, #e0e2ee 8%, #e0e2ee 9% 11%, #e0e2ee 11% 12%, #fff 17% 19%, #e0e2ee 22% 50%, #e0e2ee 50% 60%, #e0e2ee 60% 70%, #e0e2ee 70% 76%, #fff 81% 83%, #e0e2ee 88% 91%)
+            width: 50px
+            height: 50px
+            border-radius: 50%
+
+          &.mod-gold
+            width: 45px
+            height: 45px
+            z-index: 1
+
+            &:before, &:after
+              content: ''
+
+            &:before
+              @include positionCenter
+              width: 130px
+              height: 20px
+              background: linear-gradient(to right, $gold 7%, #feffad 13% 17%, $gold 27% 50%, $gold 50% 60%, $gold 60% 70%, $gold 70% 64%, #feffad 85% 87%, $gold 94% 97%)
+            
+            &:after
+              width: 41px
+              height: 41px
+              background: linear-gradient(to right, $gold 32%, #feffad 51% 44%, $gold 68%)
 
 @keyframes loading
   0%
