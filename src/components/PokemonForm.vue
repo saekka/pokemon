@@ -3,7 +3,7 @@
     <form class="pokemon-form">
       <label class="pokemon-form__label">
         <span class="pokemon-form__label-text">身長</span>
-        <input id="height" class="pokemon-form__input" type="text" v-model="height">
+        <input id="height" class="pokemon-form__input" type="text" v-model="height" inputmode="decimal">
         <span class="pokemon-form__unit">cm</span>
         <button type="button" class="pokemon-form__delete-button" @click="height = ''" :disabled="height === ''">
           <img class="pokemon-form__delete-button-icon" src="../assets/trash-icon.svg" alt="削除">
@@ -11,7 +11,7 @@
       </label>
       <label class="pokemon-form__label">
         <span class="pokemon-form__label-text">体重</span>
-        <input id="weight" class="pokemon-form__input" type="text" v-model="weight">
+        <input id="weight" class="pokemon-form__input" type="text" v-model="weight" inputmode="decimal">
         <span class="pokemon-form__unit">kg</span>
         <button type="button" class="pokemon-form__delete-button" @click="weight = ''" :disabled="weight === ''">
           <img class="pokemon-form__delete-button-icon" src="../assets/trash-icon.svg" alt="削除">
