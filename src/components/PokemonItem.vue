@@ -45,7 +45,7 @@ watch(
   <div class="pokemon-item">
     <template v-if="image">
       <dt class="pokemon-item__image-wrapper">
-        <img class="pokemon-item__image" :src="getImageUrl(image)" :alt="props.pokemon.name" width="120" height="120"
+        <img class="pokemon-item__image" :src="getImageUrl(image)" :alt="props.pokemon.name" width="100" height="100"
           loading="lazy">
       </dt>
     </template>
