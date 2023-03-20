@@ -36,6 +36,8 @@ import type { Pokemon } from '../model/pokemon';
 
 const height = ref<string>();
 const weight = ref<string>();
+height.value = '';
+weight.value = '';
 
 type Query = {
   [x: string]: Pokemon[];
@@ -70,7 +72,7 @@ const getAllPokemons = () => {
   const { onResult } = useQuery<Query>(query);
 
   onResult(result => {
-    fetchdata.value = result.data.pokemon_v2_pokemonspeciesname
+    fetchdata.value = result.data!.pokemon_v2_pokemonspeciesname
       ;
   });
 };
@@ -120,6 +122,9 @@ getAllPokemons();
     border-radius: 50%
     background-color: #ccc
     border: none
+
+    &:hover:not(:disabled)
+      cursor: pointer
 
     &:disabled
       opacity: .6

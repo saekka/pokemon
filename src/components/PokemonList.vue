@@ -6,21 +6,30 @@ import { nextTick, onMounted, reactive, watch } from 'vue';
 // eslint-disable-next-line vue/no-setup-props-destructure
 const props = defineProps<{ pokemons: Pokemon[], height?: string, weight?: string }>();
 let pokemons: Pokemon[];
+let similarPokemons: Pokemon[];
 
 const flag = reactive({ isLoading: false })
 
 const setPokemon = () => {
   pokemons = props.pokemons
+  similarPokemons = []
+
   if (props.height && props.weight) {
-    pokemons = pokemons.filter(item => (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height)) && (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight)));
+    pokemons = props.pokemons.filter(item => (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height)) && (Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight)));
     return
   }
   if (props.height) {
-    pokemons = pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height));
+    pokemons = props.pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Number(props.height));
+    if (pokemons.length < 1) {
+      similarPokemons = props.pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].height) * 10 === Math.round(Number(props.height)));
+    }
     return
   }
   if (props.weight) {
-    pokemons = pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight));
+    pokemons = props.pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Number(props.weight));
+    if (pokemons.length < 1) {
+      similarPokemons = props.pokemons.filter(item => Number(item.pokemon_v2_pokemonspecy.pokemon_v2_pokemons[0].weight) / 10 === Math.round(Number(props.weight)));
+    }
     return
   }
 }
@@ -91,13 +100,22 @@ watch(
         <PokemonItem class="pokemon-list__item" v-for="(pokemon, i) in pokemons" :key="i" :pokemon="pokemon" />
       </dl>
     </template>
+    <template v-else-if="similarPokemons.length > 0">
+      <p class="pokemon-list__result">完全一致はいなかったけど、<br class="sp">近いポケモンはこんな感じ</p>
+      <dl class="pokemon-list">
+        <PokemonItem class="pokemon-list__item" v-for="(pokemon, i) in similarPokemons" :key="i" :pokemon="pokemon" />
+      </dl>
+    </template>
     <template v-else>
-      <p class="pokemon-list__nodata">同じ体型のポケモンはいないみたい...</p>
+      <p class="pokemon-list__result">同じ体型のポケモンはいないみたい...</p>
     </template>
   </section>
 </template>
 
 <style lang="sass" scoped>
+@media screen and (min-width:480px)
+  .sp
+    display: none
 .pokemon-list
   display: grid
   justify-content: center
@@ -107,8 +125,11 @@ watch(
   @media screen and (min-width:480px)
     grid-template-columns: repeat(auto-fill,140px)
 
-  &__nodata
+  &__result
     text-align: center
+
+    & + .pokemon-list
+      margin-top: 40px
 
 $gold : #f0bd4b
 $pink : #c83892
