@@ -87,18 +87,12 @@ getAllPokemons();
   display: flex
   flex-wrap: wrap
   justify-content: center
+  gap: 10px 40px
 
   &__label
     display: flex
     flex-wrap: wrap
     align-items: center
-
-    & + &
-      @media screen and (min-width:500px)
-        margin-left: 10%
-
-      @media screen and (max-width:480px)
-        margin-top: 1em
 
   &__label-text + &__input
     margin-left: 1em
