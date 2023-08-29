@@ -64,10 +64,13 @@ watch(
   &__image
     object-fit: contain
   
-  &__heading
-    margin-top: 10px
+  &__heading,
+  &__data
     flex-basis: 100%
     text-align: center
+
+  &__heading
+    margin-top: 10px
     font-weight: bold
   
   &__data
